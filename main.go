@@ -28,10 +28,17 @@ func main() {
 		_, err := fmt.Scanln(&g)
 
 		if err != nil {
-			fmt.Println("Invalid input! No lives will be lost but please enter a valid integer...")
+			fmt.Println("Invalid input! No lives will be lost but please enter a valid integer between 0-9...")
 
 			// clear input buffer
 			reader.ReadString('\n')
+
+			i--
+			continue
+		}
+
+		if g < 0 || g >= 10 {
+			fmt.Println("Out of bounds! No lives will be lost but please enter a valid integer between 0-9...")
 
 			i--
 			continue
