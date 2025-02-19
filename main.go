@@ -5,12 +5,14 @@ import (
 	"fmt"
 	"math/rand/v2"
 	"os"
+	"slices"
 )
 
-const lives = 3
-
 func main() {
-	var g int
+	var lives = 3
+	var guess int
+	var previousGuesses []int
+
 	reader := bufio.NewReader(os.Stdin)
 
 	fmt.Println("Generating a random number between 0 and 10...")
@@ -25,7 +27,7 @@ func main() {
 		fmt.Printf("\nYou are on life %d out of %d...\n", cl, lives)
 		fmt.Print("Enter your guess: ")
 
-		_, err := fmt.Scanln(&g)
+		_, err := fmt.Scanln(&guess)
 
 		if err != nil {
 			fmt.Println("Invalid input! No lives will be lost but please enter a valid integer between 0-9...")
@@ -37,15 +39,24 @@ func main() {
 			continue
 		}
 
-		if g < 0 || g >= 10 {
+		if guess < 0 || guess >= 10 {
 			fmt.Println("Out of bounds! No lives will be lost but please enter a valid integer between 0-9...")
 
 			i--
 			continue
 		}
 
-		if n == g {
-			fmt.Printf("Correct guess. You win! You guessed %d and the random generated number was %d!\n", g, n)
+		if slices.Contains(previousGuesses, guess) {
+			fmt.Printf("The number '%d' has already been guessed. Previous guesses: '%d'. Please enter a different number...\n", guess, previousGuesses)
+
+			i--
+			continue
+		}
+
+		previousGuesses = append(previousGuesses, guess)
+
+		if n == guess {
+			fmt.Printf("Correct guess. You win! You guessed %d and the random generated number was %d!\n", guess, n)
 			break
 		} else {
 			fmt.Println("Incorrect guess...")
