@@ -98,5 +98,5 @@ func GetLives(n int) int {
 	if n >= 1 && n <= 2 {
 		return 1
 	}
-	return 1 + GetLives(n/2)
+	return 1 + GetLives((n+1)/2) // ceiling division
 }
