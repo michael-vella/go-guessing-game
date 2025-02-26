@@ -91,6 +91,10 @@ func main() {
 	}
 
 	fmt.Println("\nThank you for playing! Hope to see you again soon...")
+
+	fmt.Println("\nPress the Enter Key to terminate the console screen!")
+	fmt.Scanln() // wait for Enter Key
+
 	os.Exit(0)
 }
 
